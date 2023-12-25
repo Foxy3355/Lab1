@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Личный кабинет</title>
+</head>
+<body>
+    <h1>Привет, это личный кабинет</h1>
+    <br><br><br>
+    <a href ="{% url 'polls:del_prof' request.user.pk %}"><h3>Удалить профиль</h3></a>
+    <br><br><br>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Сохранить</button>
+    </form>
+</body>
+</html>

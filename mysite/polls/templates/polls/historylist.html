@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>История опросов</title>
+</head>
+<body>
+<h2>Список всех опросов которые были проведены или проводятся.</h2>
+<a href="{% url 'polls:index' %}"><h4>Вернуться на главную</h4></a><br><br>
+    {% for i in lst %}
+        <div><a href="{% url 'polls:results' i.pk %}">{{ i.question_text }}</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Опубликовано: {{ i.pub_date }}</div>
+    {% endfor %}
+</body>
+</html>

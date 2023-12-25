@@ -1,0 +1,26 @@
+{% load custom_filter %}
+
+<h1>{{ question.question_text }}</h1>
+{% if question.main_text.exists      %}
+    <h4>{{ question.main_text }}</h4>
+{% endif %}
+{% if question.img %}
+    <img src="{{ question.img.url }}" alt="some_image" style="width:200px;">
+{% endif %}
+
+{% if choices_with_percents %}
+    <ul>
+        {% for choice in choices_with_percents %}
+            <li>{{ choice.choice_text }} -- {{ choice.percent|default:0|trunc }}% vote{{choice.votes|pluralize}}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+<p>ВСЕГО ГОЛОСОВАЛО: <b>{{ total_votes|trunc }}</b></p>
+{% if user.is_superuser %}
+    <a href="{% url 'polls:history' %}">Вернуться</a>
+{% else %}
+    <a href="{% url 'polls:detail'  question.id %}">Выбрать еще раз? </a><br>
+    <a href="{% url 'polls:index' %}">Вернуться</a>
+{% endif %}
+<br>
+

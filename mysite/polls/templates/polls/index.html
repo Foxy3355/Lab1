@@ -1,0 +1,28 @@
+{% if user.avatar %}
+    <img src="{{ user.avatar.url }}" alt="avatarka" style="width: 50px;"><h3>{{ user.username }} </h3>
+{% endif %}
+
+{% if latest_question_list %}
+{% if user.is_superuser %}
+    <h3>Здравствуйте {{ user.username|upper}}</h3>
+{% else %}
+    <ul>
+        {% for question in latest_question_list %}
+            <li><a href="{% url 'polls:detail' question.id %}">{{question.question_text}}</a> </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+    {% if user.is_superuser %}
+        <a href="{% url 'polls:profile' user.pk  %}">Личный кабинет</a><br>
+        <a href="{% url 'polls:history'  %}">Просмотр истории опросов</a><br>
+        <a href="{% url 'polls:logout'  %}">Выйти</a>
+    {% elif user.is_authenticated %}
+        <a href="{% url 'polls:profile' user.pk  %}">Личный кабинет</a><br>
+        <a href="{% url 'polls:logout'  %}">Выйти</a>
+    {% endif %}
+    {% else %}
+     <p>
+         Нет вопросов!
+     </p>
+
+{% endif %}
